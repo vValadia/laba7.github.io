@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+<form id="calc">
+  <div><input type="number" name="number1" value="0" required></div>
+  <div><input type="number" name="number2" value="0" required></div>
+  <div><input type="number" name="number3" value="0"></div>
+  <div>
+    <input class="action" type="button" value="+">
+    <input class="action" type="button" value="-">
+    <input class="action" type="button" value="/">
+    <input class="action" type="button" value="*">
+    <input class="action" type="button" value="sqrt">
+  </div>
+</form>
+<script>
+  const calc = {
+    el: document.querySelector('#calc'),
+    get a() {
+      return parseFloat(this.el.number1.value);
+    },
+    get b() {
+      return parseFloat(this.el.number2.value);
+    },
+
+    actions: {
+      '+'() {
+        return calc.a + calc.b;
+      },
+      '-'() {
+        return calc.a - calc.b;
+      },
+      '/'() {
+        return calc.a / calc.b;
+      },
+      '*'() {
+        return calc.a * calc.b;
+      },
+      sqrt() {
+        return Math.sqrt(calc.a);
+      }
+    },
+
+    onClick(e) {
+      e.preventDefault();
+      if (!e.target.matches('.action')) return;
+ 
+      this.el.number3.value = this.actions[e.target.value]();
+    }
+  }
+ 
+  calc.el.addEventListener('click', calc.onClick.bind(calc));
+ 
+</script>
+</body>
+</html>
